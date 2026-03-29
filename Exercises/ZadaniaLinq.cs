@@ -73,15 +73,6 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie04_PierwszyPrzedmiotAnalityczny()
     {
-        /*var method = DaneUczelni.Przedmioty
-            .Where(s => s.Kategoria.Equals("Analytics"))
-            .Select(s => $"{s.Nazwa}, {s.DataStartu}")
-            .Take(1);
-        
-        return method.Any()
-            ? method
-            : new List<string>{$"Przedmiot nie istnieje"};*/
-
         var method = DaneUczelni.Przedmioty
             .FirstOrDefault(s => s.Kategoria.Equals("Analytics"));
         return (method is not null) ? [$"{method.Nazwa}, {method.DataStartu}"] : ["Przedmiot nie istnieje"];
@@ -101,7 +92,10 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie05_CzyIstniejeNieaktywneZapisanie()
     {
-        throw Niezaimplementowano(nameof(Zadanie05_CzyIstniejeNieaktywneZapisanie));
+        var method = DaneUczelni.Zapisy
+            .Any(s => !s.CzyAktywny);
+        
+        return new List<string>{ method ? "true" : "false" };
     }
 
     /// <summary>
@@ -116,7 +110,10 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie06_CzyWszyscyProwadzacyMajaKatedre()
     {
-        throw Niezaimplementowano(nameof(Zadanie06_CzyWszyscyProwadzacyMajaKatedre));
+        var method = DaneUczelni.Prowadzacy
+            .All(s => !string.IsNullOrEmpty(s.Katedra));
+        
+        return new List<string>{ method ? "Prowadzący mają uzupełnione katedry" : "Prowadzący nie mają uzupełnione katedry" };
     }
 
     /// <summary>
@@ -130,7 +127,10 @@ public sealed class ZadaniaLinq
     /// </summary>
     public IEnumerable<string> Zadanie07_LiczbaAktywnychZapisow()
     {
-        throw Niezaimplementowano(nameof(Zadanie07_LiczbaAktywnychZapisow));
+        var method = DaneUczelni.Zapisy
+            .Count(s => s.CzyAktywny);
+
+        return new List<string> { method.ToString() };
     }
 
     /// <summary>
